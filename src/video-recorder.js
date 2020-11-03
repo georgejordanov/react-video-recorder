@@ -271,7 +271,7 @@ export default class VideoRecorder extends Component {
       .catch(this.handleError)
   }
 
-  switchCamera = () => {
+  handleSwitchCamera = () => {
     if (this.props.onSwitchCamera) {
       this.props.onSwitchCamera()
     }
@@ -770,9 +770,9 @@ export default class VideoRecorder extends Component {
     if (isCameraOn) {
       // Enable switch camera button, only if not recording and multiple video sources available
       const switchCameraControl =
-        (availableDeviceIds && availableDeviceIds.length >= 1) && !isRecording ? (
-        <SwitchCameraView onClick={this.switchCamera} />
-      ) : null
+        availableDeviceIds && availableDeviceIds.length >= 1 && !isRecording ? (
+          <SwitchCameraView onClick={this.handleSwitchCamera} />
+        ) : null
 
       return (
         <CameraView key='camera'>
@@ -782,7 +782,7 @@ export default class VideoRecorder extends Component {
             autoPlay
             muted
           />
-          { switchCameraControl }
+          {switchCameraControl}
         </CameraView>
       )
     }
@@ -840,7 +840,7 @@ export default class VideoRecorder extends Component {
           useVideoInput,
 
           onTurnOnCamera: this.turnOnCamera,
-          onSwitchCamera: this.switchCamera,
+          onSwitchCamera: this.handleSwitchCamera,
           onTurnOffCamera: this.turnOffCamera,
           onOpenVideoInput: this.handleOpenVideoInput,
           onStartRecording: this.handleStartRecording,
